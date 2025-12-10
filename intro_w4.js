@@ -541,7 +541,7 @@ function startsWithLetter(arr, letter){
 
 function startsWithLetterErr(arr, letter){
     if(letter.length > 1 || typeof letter != 'string'){
-        return `Letter must be a string of length 1`;
+        throw new Error("Letter must be a string of length 1");
     }
     return arr.find(item => item[0] === letter);
 }
@@ -549,6 +549,7 @@ function startsWithLetterErr(arr, letter){
 console.log (`Q20 startsWithLetter T:`, startsWithLetter(jokeStrings, "T"));
 console.log (`Q20 startsWithLetter i:`, startsWithLetter(jokeStrings, "i"));
 console.log (`Q20 startsWithLetter I:`, startsWithLetter(jokeStrings, "I"));
-console.log (`Q20 startsWithLetter dog:`, startsWithLetterErr(jokeStrings, "dog"));
+console.log(`Q20 startsWithLetter dog:`);
+console.log(startsWithLetterErr(jokeStrings, "dog"));
 
 

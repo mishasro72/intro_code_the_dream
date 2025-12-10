@@ -166,8 +166,8 @@
 //     }
 // }
 
-let startTime = '11:59';
-let endTime = '15:59';
+let startTime = '23:59';
+let endTime = '11:59';
 
 function checkNan(number){
     return isNaN(number);
