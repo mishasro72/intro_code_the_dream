@@ -422,10 +422,10 @@ console.log (`Q16 onlyStrings [${manyTypes}]:`, onlyStrings(manyTypes));
 // EXAMPLE OUTPUT:
 //   Q17 firstOdd [4,41,832,72,89,120,431,505,70]: 41
 
-let array = [4,41,832,72,89,120,431,505,70];
+let array = [4,-3, 41,832,72,89,120,431,505,70];
 
 function firstOdd(arr){
-    return arr.find(item => item % 2 === 1);   
+    return arr.find(item => item % 2 !== 0);   
 }
 
 function secondOdd(array){
