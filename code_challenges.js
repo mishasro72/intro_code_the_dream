@@ -1,0 +1,190 @@
+//Task 1 Write a function that capitalizes a string
+
+function capitalizeString(str) {
+  if (typeof str !== "string") {
+    throw new TypeError("Input must be string!");
+  }
+  return str.toUpperCase();
+}
+
+// Example usage:
+console.log(capitalizeString("hello world")); // Output: "HELLO WORLD"
+
+/* Task 2 Panic function 
+Write a PANIC! function. The function should take in a sentence and return the same
+sentence in all caps with an exclamation point (!) at the end. Use JavaScript's
+built in string methods. 
+
+If the string is a phrase or sentence, add a 😱 emoji in between each word. 
+
+Example input: "Hello"
+Example output: "HELLO!"
+
+Example input: "I'm almost out of coffee"
+Example output: "I'M 😱 ALMOST 😱 OUT 😱 OF 😱 COFFEE!"
+*/
+
+//version 1
+function panic(str) {
+  if (typeof str != "string") {
+    throw new TypeError("Input must be string!");
+  }
+  return str.split(" ").join(" 😱 ").toUpperCase() + "!";
+}
+
+//version 2
+function panic2(str) {
+  if (typeof str != "string") {
+    throw new TypeError("Input must be string!");
+  }
+  let arr = str.split(" ");
+  let newArr = [];
+  for (const i of arr) {
+    newArr.push(i.toUpperCase());
+  }
+  return newArr.join(" 😱 ") + "!";
+}
+
+// Example usage:
+console.log(panic("I'm almost out of coffee"));
+console.log(panic("wold"));
+
+console.log(panic2("I'm almost out of coffee"));
+console.log(panic2("wold"));
+
+/* Task 3 Whispering function 
+Write a function `whisper` that takes in a sentence 
+and returns a new sentence in all lowercase letters with
+"shh..." at the beginning. 
+
+The function should also remove an exclamation point
+at the end of the sentence, if there is one. 
+
+Example 
+input: "The KITTENS are SLEEPING!"
+output: "shh... the kittens are sleeping"
+
+Hint: endsWith and slice
+*/
+
+//version 1
+function whisper(str) {
+  let arr = str.split(" ");
+  arr.unshift("shh...");
+  arr = arr.map((item) => item.toLowerCase());
+  arr[arr.length - 1] = arr[arr.length - 1].replace("!", "");
+  return arr.join(" ");
+}
+
+//version 2
+function whisper2(str) {
+  if (str.endsWith("!")) {
+    return "shh... " + str.slice(0, -1).toLowerCase();
+  } else {
+    return "shh... " + str.toLowerCase();
+  }
+}
+
+console.log(whisper("PLEASE STOP SHOUTING."));
+console.log(whisper("MA'AM, this is a Wendy's!"));
+
+console.log(whisper2("PLEASE STOP SHOUTING."));
+console.log(whisper2("MA'AM, this is a Wendy's!"));
+
+/* Task 3 Alternating Caps 
+ Write a function that takes in a string of letters
+ and returns a sentence in which every other letter is capitalized.
+
+Example input: "I'm so happy it's Monday"
+Example output: "I'M So hApPy iT'S MoNdAy"
+*/
+
+function altCaps(str) {
+  let newStr = "";
+  str.split("").forEach(function (char, index) {
+    if (index % 2 == 0) {
+      newStr += char.toUpperCase();
+    } else {
+      newStr += char.toLowerCase();
+    }
+  });
+  return newStr;
+}
+
+console.log(altCaps("When you visit Portland you have to go to VooDoo Donuts"));
+
+/* Task 4 toTitleCase
+Write a function that will capitalize every word in a sentence.  
+
+Example Input: "everything, everywhere, all at once"
+Example Output: "Everything, Everywhere, All At Once"
+*/
+
+/* 
+First, write a function that takes in one word and 
+capitalizes the first letter of that word.
+
+Example Input: "scrimba"
+Example Output: "Scrimba"
+
+Hint: Trying using slice() and .toUpperCase()
+*/
+
+function capitalizeWord(word) {
+  return word[0].toUpperCase() + word.slice(1);
+}
+
+/* 
+Now write a function that capitalizes every word in a sentence. 
+How can you reuse the function you just wrote? 
+*/
+
+function toTitleCase(str) {
+  return str
+    .split(" ")
+    .map((item) => capitalizeWord(item))
+    .join(" ");
+}
+
+// Test your functions
+console.log(capitalizeWord("pumpkin"));
+console.log(toTitleCase("pumpkin pranced purposefully across the pond"));
+
+/* Task 5 Totally Not Another FizzBuzz 
+
+Scrimba CEO Per Borgen wants you to write a program to grant special bonuses to all his employees based on their employee ID numbers! 
+
+Scrimba has 100 employees and their employee ID numbers range from 1 - 100. If the employee's ID number is: 
+
+Divisible by 3 - Vacation! 
+Divisible by 5 - $100,000 bonus! 
+Divisible by both 3 and 5 - JACKPOT! 1 Million and a Yacht!
+Not divisible by 3 or 5 - :(
+    
+Write a program to loop through all the ID numbers and print their prize. 
+Your function's output should look something like this: 
+
+1 - :(
+2 - :(
+3 - Vacation! 
+4 - :(
+5 - $100,000 bonus!
+
+Hint: Remainder operator, modulo 
+ */
+
+function awardBonuses() {
+  for (let i = 1; i <= 100; i++) {
+    if (i % 15 === 0) {
+      console.log(`${i} - JACKPOT! 1 Million and a Yacht!`);
+    } else if (i % 3 === 0) {
+      console.log(`${i} - Vacation!`);
+    } else if (i % 5 === 0) {
+      console.log(`${i} - $100,000 bonus!`);
+    } else {
+      console.log(`${i} - :(`);
+    }
+  }
+}
+
+awardBonuses();
