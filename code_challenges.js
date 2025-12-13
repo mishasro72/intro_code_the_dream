@@ -189,7 +189,7 @@ function awardBonuses() {
 
 awardBonuses();
 
-/*  Task 6Emojify!
+/*  Task 6 Emojify!
 
 Popular services like Slack and Github allow for emoji shortscodes, meaning 
 they will detect when a word in a sentence begins and ends with a colon (:)
@@ -203,13 +203,13 @@ For example, typing :smile: will replace that text with 😊
 */
 
 const emojis = {
-    "smile": "😊",
-    "angry": "😠",
-    "party": "🎉",
-    "heart": "💜",
-    "cat":   "🐱",
-    "dog":   "🐕"
-}
+  smile: "😊",
+  angry: "😠",
+  party: "🎉",
+  heart: "💜",
+  cat: "🐱",
+  dog: "🐕",
+};
 
 /* 1. Write a function that checks if a lowercase word starts and 
 ends with a colon. If it does, remove the colons and
@@ -225,18 +225,18 @@ Example output: "flower"
 
 Example input: "elephant"
 Example output: "elephant"
-*/ 
+*/
 
-function emojifyWord(word){
-  if(!word.startsWith(":") && !word.endsWith(":")){
+function emojifyWord(word) {
+  if (!word.startsWith(":") && !word.endsWith(":")) {
     return word;
   }
   let newWord = word.slice(1, -1);
-  if(emojis[newWord]){
-    return emojis[newWord]
+  if (emojis[newWord]) {
+    return emojis[newWord];
   } else {
     return newWord;
-  } 
+  }
 }
 
 /* 2. Write a function to find any emoji shortcodes in a phrase.
@@ -249,19 +249,122 @@ Example output: "I 💜 my 🐱"
 
 Example input: "I :heart: my elephant"
 Example output: "I 💜 my elephant"
-*/ 
+*/
 
-function emojifyPhrase(phrase){
-    return phrase
-      .split(' ')
-      .map(word => emojifyWord(word))
-      .join(' ');
+function emojifyPhrase(phrase) {
+  return phrase
+    .split(" ")
+    .map((word) => emojifyWord(word))
+    .join(" ");
 }
-
-
 
 console.log(emojifyWord(":heart:"));
 console.log(emojifyWord(":flower:"));
 console.log(emojifyWord("elephant"));
 
 console.log(emojifyPhrase("I :heart: my :cat:"));
+
+/* Task 7 Anagrams
+
+Anagrams are groups of words that can be spelled with the same letters. 
+For example, the letters in "pea" can be rearrange to spell "ape", and 
+the letters in "allergy" can be rearranged to spell "gallery."
+
+Write a function to check if two strings of lowercase letters are anagrams. 
+Return true if the word is an anagram. Return false if it isn't. 
+
+Example input: "allergy", "gallery"
+Example output: true
+
+Example input: "rainbow", "crossbow"
+Example output: false
+
+*/
+
+//version 1
+
+function isAnagram(str1, str2) {
+  if (str1.length !== str2.length) {
+    return false;
+  }
+  let arr1 = str1.split("").sort();
+  let arr2 = str2.split("").sort();
+
+  return arr1.every((i, index) => i === arr2[index]);
+}
+
+console.log(isAnagram("allergy", "gallery"));
+console.log(isAnagram("treasure", "measure"));
+
+//version 2
+
+function isAnagram2(str1, str2) {
+  function normalizer(str) {
+    return str.toLowerCase().split("").sort().join("");
+  }
+  return normalizer(str1) === normalizer(str2);
+}
+
+console.log(isAnagram2("allergy", "gallery"));
+console.log(isAnagram2("treasure", "measure"));
+
+/* Task 8 We Come in Peace!  
+We've received what (we assume) is a message of peace and brotherhood from 
+an alien planet. They almost got it right, but the messages are 
+backward. Write functions to reverse the backward messages so we can 
+read what they have to say! 
+*/
+
+const title = ":htraE no od ot ffutS";
+const messages = [
+  "maerc eci yrT",
+  "rewoT leffiE tisiV",
+  "noom eht ot snamuh etacoleR",
+  "egrahc ni stac tuP",
+];
+
+/* Step 1: Reverse a string
+Write a function that takes in a string and returns the reverse 
+of that string. An interviewer may want to check if you know your
+string methods, or may want to know if you can reverse a string manually. 
+Practice both ways! 
+
+Example input: !htrae ot emocleW
+Example output: Welcome to earth!
+*/
+
+//version 1
+function reverseString(str) {
+  return str.split("").reverse().join("");
+}
+
+/*
+Step 2: Now we'll reverse all strings in an array. Write a function that takes in
+an array of strings and returns a new array with all strings reversed.
+
+You can use reuse your reverseString() function, use string methods, or 
+reverse the strings manually. 
+*/
+
+function reverseStringsInArray(arr) {
+  return arr.map((str) => reverseString(str));
+}
+
+////version 2
+function reverseString2(str) {
+  let newStr = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    newStr += str[i];
+  }
+  return newStr;
+}
+
+function reverseStringsInArray2(arr) {
+  return arr.map((str) => reverseString2(str));
+}
+
+console.log(reverseString(title));
+console.log(reverseStringsInArray(messages));
+
+console.log(reverseString2(title));
+console.log(reverseStringsInArray2(messages));
