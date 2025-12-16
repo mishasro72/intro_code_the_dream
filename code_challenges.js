@@ -427,11 +427,11 @@ function removeDupeChars(chars) {
 console.log(removeDupeChars(password));
 
 // //version 2
-function removeDupeChars2(chars){
-  let newPassword = '';
+function removeDupeChars2(chars) {
+  let newPassword = "";
 
-  for(let i of chars){
-    if(!newPassword.includes(i)){
+  for (let i of chars) {
+    if (!newPassword.includes(i)) {
       newPassword += i;
     }
   }
@@ -453,14 +453,14 @@ Example output: {p: 2, e: 1, g: 2, y: 1, o: 1, r: 1, t: 1, h: 1}
 Your function should NOT count spaces and should not be case sensitive (a
 lowercase t and a capital T should be considered the same character).
 
-*/ 
+*/
 
-function countChars(str){
+function countChars(str) {
   let charCount = {};
-  let newStr = str.replace(/\s/g, '').toLowerCase();
+  let newStr = str.replace(/\s/g, "").toLowerCase();
 
-  for(let i of newStr){
-    if(charCount[i]){
+  for (let i of newStr) {
+    if (charCount[i]) {
       charCount[i] += 1;
     } else {
       charCount[i] = 1;
@@ -470,3 +470,224 @@ function countChars(str){
 }
 
 console.log(countChars("Peggy Porth"));
+
+/* Task 12 Chef Mario's Recipe Book 
+Chef Mario was in the middle of writing his cookbook masterpiece
+when he spilled coffee on his keyboard! Now all his recipes have repeat
+ingredients.
+
+Help save Chef Mario's cookbook by writing a function that takes in an array 
+and returns a new array with all the duplicates removed. 
+
+Example input: ["🌈 rainbow", "🦄 unicorn", "🍭 lollipops", "🦄 unicorn", "🍭 lollipops"];
+Example output: ["🌈 rainbow", "🦄 unicorn", "🍭 lollipops"];
+*/
+
+const eggScrambleRecipe = [
+  "🥓 bacon",
+  "🥓 bacon",
+  "🍳 eggs",
+  "🫑 green peppers",
+  "🧀 cheese",
+  "🌶️ hot sauce",
+  "🥓 bacon",
+  "🥦 broccoli",
+  "🧀 cheese",
+  "🥦 broccoli",
+  "🌶️ hot sauce",
+];
+
+//version 1
+function removeDupesFromArray(arr) {
+  let newArr = [];
+  for (let item of arr) {
+    if (!newArr.includes(item)) {
+      newArr.push(item);
+    }
+  }
+  return newArr;
+}
+
+//version 2
+function removeDupesFromArray2(arr) {
+  let newArr = [];
+  arr.forEach((item) => {
+    if (!newArr.includes(item)) {
+      newArr.push(item);
+    }
+  });
+  return newArr;
+}
+
+//version 3 j,jectrs and filter
+function removeDupesFromArray3(arr) {
+  let duplCheck = {};
+  return arr.filter((item) => {
+    if (!duplCheck[item]) {
+      duplCheck[item] = true;
+      return true;
+    }
+    return false;
+  });
+}
+
+//version 4 Set
+function removeDupesFromArray4(arr) {
+  return [...new Set(arr)];
+}
+
+console.log(removeDupesFromArray(eggScrambleRecipe));
+console.log(removeDupesFromArray2(eggScrambleRecipe));
+console.log(removeDupesFromArray3(eggScrambleRecipe));
+console.log(removeDupesFromArray4(eggScrambleRecipe));
+
+/* Task 13 Flatten Nested Arrays
+Scrimba mascot Pumpkin has won the grand prize at an international 
+cat show. Below are Pumpkin's scores from the judges, as well as all the 
+prizes he's won. In all the excitement of victory,
+they've become a jumbled mess of nested arrays. Let's 
+help Pumpkin by sorting it out. 
+
+Write a function to flatten nested arrays of strings or
+numbers into a single array. There's a method
+for this, but pratice both doing it manually and using the method. 
+
+Example input: [1, [4,5], [4,7,6,4], 3, 5]
+Example output: [1, 4, 5, 4, 7, 6, 4, 3, 5]
+*/
+
+const kittyScores = [
+  [39, 99, 76],
+  89,
+  98,
+  [87, 56, 90],
+  [96, 95],
+  40,
+  78,
+  50,
+  [63],
+];
+
+const kittyPrizes = [
+  ["💰", "🐟", "🐟"],
+  "🏆",
+  "💐",
+  "💵",
+  ["💵", "🏆"],
+  ["🐟", "💐", "💐"],
+  "💵",
+  "💵",
+  ["🐟"],
+  "🐟",
+];
+
+//version 1
+function flatten(arr) {
+  let flatArr = [];
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      item.forEach((i) => flatArr.push(i));
+    } else {
+      flatArr.push(item);
+    }
+  });
+  return flatArr;
+}
+
+//version 2 Using built-in flat() method
+function flatten2(arr) {
+  return arr.flat();
+}
+
+//version 3 Using recursion
+function flatten3(arr) {
+  let flatArr = [];
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      flatArr = flatArr.concat(flatten3(item)); 
+    } else {
+      flatArr.push(item);
+    }
+  });
+  return flatArr;
+}
+
+console.log(flatten(kittyPrizes));
+console.log(flatten(kittyScores));
+
+console.log(flatten2(kittyPrizes));
+console.log(flatten2(kittyScores));
+
+console.log(flatten3(kittyPrizes));
+console.log(flatten3(kittyScores));
+
+/*Task 14 Student Attendance Count
+Alex from Scrimba wants to know how many new students have attended 
+Scrimba's weekly Town Hall event this year. 
+
+He has an array of first-time attendees for each month of the year. 
+Help him find the total number of attendees! Your function should
+take in an array and return a number representing the total number
+of new attendees. 
+
+Example input: [1,2,3]
+Example output: 6
+ */
+
+const studentCount = [50,53,61,67,60,70,78,80,80,81,90,110];
+
+function sumArray(arr){
+  return arr.reduce((acc, cur) => acc + cur, 0);
+}
+
+console.log(sumArray(studentCount));
+
+/* Task 15 Pizza Night? 
+It's the weekend and you and your friends can't agree on 
+what to order for dinner, so you put it to a vote. 
+
+Write a function to find the food with the highest number of votes. 
+
+Your function should take in a food object and find the food
+with the most votes. It should log the winner, along with 
+how many votes it received.  
+
+Example input: {"🐈 cats": 19, "🐕 dogs": 17} 
+Example output: The winner is 🐈 cats with 19 votes!
+*/ 
+
+const gameNightFood = {
+    "🍕 pizza": 3, 
+    "🌮 tacos": 10, 
+    "🥗 salads": 7,
+    "🍝 pasta": 5
+}
+
+//version 1 Using key .. of ..
+function findTheWinner(obj){
+  let votes = 0;
+  let name = '';
+  for(let key in obj){
+    if(obj[key] > votes) {
+      votes = obj[key];
+      name = key;
+    }
+  }
+  return (`The winner is ${name} with ${votes} votes!`);
+}
+
+//version 2 Using Object.entries()
+function findTheWinner2(obj){
+  let votes = 0;
+  let name = '';
+  for(let[key, value] of Object.entries(obj)){
+    if(value > votes) {
+      votes = value;
+      name = key;
+    }
+  }
+  return (`The winner is ${name} with ${votes} votes!`);
+}
+
+console.log(findTheWinner(gameNightFood));
+console.log(findTheWinner2(gameNightFood));
