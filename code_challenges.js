@@ -604,7 +604,7 @@ function flatten3(arr) {
   let flatArr = [];
   arr.forEach((item) => {
     if (Array.isArray(item)) {
-      flatArr = flatArr.concat(flatten3(item)); 
+      flatArr = flatArr.concat(flatten3(item));
     } else {
       flatArr.push(item);
     }
@@ -634,9 +634,9 @@ Example input: [1,2,3]
 Example output: 6
  */
 
-const studentCount = [50,53,61,67,60,70,78,80,80,81,90,110];
+const studentCount = [50, 53, 61, 67, 60, 70, 78, 80, 80, 81, 90, 110];
 
-function sumArray(arr){
+function sumArray(arr) {
   return arr.reduce((acc, cur) => acc + cur, 0);
 }
 
@@ -654,40 +654,117 @@ how many votes it received.
 
 Example input: {"🐈 cats": 19, "🐕 dogs": 17} 
 Example output: The winner is 🐈 cats with 19 votes!
-*/ 
+*/
 
 const gameNightFood = {
-    "🍕 pizza": 3, 
-    "🌮 tacos": 10, 
-    "🥗 salads": 7,
-    "🍝 pasta": 5
-}
+  "🍕 pizza": 3,
+  "🌮 tacos": 10,
+  "🥗 salads": 7,
+  "🍝 pasta": 5,
+};
 
 //version 1 Using key .. of ..
-function findTheWinner(obj){
+function findTheWinner(obj) {
   let votes = 0;
-  let name = '';
-  for(let key in obj){
-    if(obj[key] > votes) {
+  let name = "";
+  for (let key in obj) {
+    if (obj[key] > votes) {
       votes = obj[key];
       name = key;
     }
   }
-  return (`The winner is ${name} with ${votes} votes!`);
+  return `The winner is ${name} with ${votes} votes!`;
 }
 
 //version 2 Using Object.entries()
-function findTheWinner2(obj){
+function findTheWinner2(obj) {
   let votes = 0;
-  let name = '';
-  for(let[key, value] of Object.entries(obj)){
-    if(value > votes) {
+  let name = "";
+  for (let [key, value] of Object.entries(obj)) {
+    if (value > votes) {
       votes = value;
       name = key;
     }
   }
-  return (`The winner is ${name} with ${votes} votes!`);
+  return `The winner is ${name} with ${votes} votes!`;
 }
 
 console.log(findTheWinner(gameNightFood));
 console.log(findTheWinner2(gameNightFood));
+
+/* Task 16 Find Free Podcasts 
+
+We have a list of podcasts and need the ability to filter by only
+podcasts which are free.
+
+Write a function that takes in the podcast data and returns an new
+array of only those podcasts which are free.
+
+Additionally, your new array should return only 
+objects containing only the podcast title, rating, and whether or 
+not it is paid. 
+
+Expected output: 
+[
+    {title: "Scrimba Podcast", rating: 10, paid: false}, 
+    {title: "Something about Witches", rating: 8, paid: false}, 
+    {title: "Coding Corner", rating: 9, paid: false}
+]
+*/
+import podcasts from "./data.js";
+
+function getFreePodcasts(data) {
+  return data
+    .filter((podcast) => !podcast.paid)
+    .map(({ title, rating, paid }) => ({ title, rating, paid }));
+}
+
+console.log(getFreePodcasts(podcasts));
+
+/* Task 17 Candy Sale!
+   It's the day after Halloween 🎃 and all the candy is on sale!
+   
+   To buy up all the candy, use map() and filter() to put all the
+   candy into a `shoppingCart` array. 
+   
+   The new array should contain only the item and the price, like
+   this: 
+   
+   Expected output: 
+   [
+       {item: "🍭", price: 2.99},
+       {item: "🍫", price: 1.99}, 
+       {item: "🍬", price: 0.89}
+    ]
+*/
+import products from "./data_candy.js";
+
+function getSaleItems(data) {
+  return data
+    .filter((item) => item.type === "sweet")
+    .map(({ item, price }) => ({ item, price }));
+}
+
+let shoppingCarts = getSaleItems(products);
+console.log(shoppingCarts);
+
+
+/* Task 18 Total the Groceries 
+Use reduce() to total the groceries. 
+Then find a method that will round the total to 2 decimal places.
+
+Example output: 73.44
+*/
+
+import shoppingCart from "./data_groceries.js";
+
+function total(arr){
+
+  return arr
+    .reduce((sum, { price }) => sum + price, 0)
+    .toFixed(2);
+    
+}
+
+console.log(total(shoppingCart));
+
