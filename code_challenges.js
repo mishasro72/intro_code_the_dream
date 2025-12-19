@@ -768,3 +768,111 @@ function total(arr){
 
 console.log(total(shoppingCart));
 
+
+
+/* Task 19 Total the Savory Items
+Use reduce() and only reduce() to calculate and return 
+the total cost of only the savory
+items in the shopping cart.
+
+Expected output: 9.97  
+*/
+// import shoppingCart from "./data_groceries.js";
+
+function totalSavory(arr){
+  return Number (arr
+    .reduce((sum, item) => {
+      if(item.type == 'savory') {
+        sum += item.price;
+      }
+      return sum;
+    }, 0)
+    .toFixed(2));
+}
+
+console.log(totalSavory(shoppingCart));
+
+/* Task 20 Sort the Products by Price
+/*
+    You're online shopping for holiday gifts, but money is tight
+    so we need to look at the cheapest items first. 
+    Use the built in sort() method to write a function that returns a new array of
+    products sorted by price, cheapest to most expensive. 
+    
+    Then log the item and the price to the console: 
+    
+    💕,0
+    🍬,0.89
+    🍫,0.99
+    🧁,0.99
+    📚,0.99
+    ... continued
+*/
+import products1 from "./data_products.js";
+
+function sortProducts(data){
+  return data.sort((a, b) => a.price - b.price);
+}
+  
+
+
+const listByCheapest = sortProducts(products1);
+for (let item of listByCheapest) {
+  console.log(item.product + "," + item.price);
+};
+
+/* Task 21 Find All Unique Tags 
+
+As a software dev at ScrimFlix, you're working on a feature 
+to let users browse TV shows by tag. The first step is to collect all 
+the tags from our data into a new array. Then we'll need 
+to filter out the duplicate tags. 
+
+Write a function that takes in the media data and returns
+a flat array of unique tags.
+
+Expected output: 
+["supernatural", "horror", "drama",
+"fantasy", "reality", "home improvement", "comedy", "sci-fi", "adventure"]
+
+*/ 
+
+import mediaData from "./data_media.js";
+
+//version 1 using Set and flat()
+function getUniqueTags(data){
+  let newTags = [];  
+  data.forEach(item => {
+    newTags.push(item['tags']);
+  }); 
+  return [...new Set(newTags.flat())];
+  }  
+  
+console.log(getUniqueTags(mediaData));
+
+//version 2 using Set and reduce()
+function getUniqueTags1(data){
+  return [...data.reduce((acc, { tags }) => {
+    tags.forEach(tag => acc.add(tag));
+    return acc;
+  }, new Set())
+  ];
+}  
+  
+console.log(getUniqueTags1(mediaData));
+
+//version 3 using for of loop
+function getUniqueTags2(data){
+  let tags = data.map(item => item.tags).flat();
+  let uniqTags = [];
+
+  tags.forEach(tag => {
+    if(!uniqTags.includes(tag)) {
+      uniqTags.push(tag);
+    }
+  })
+
+  return uniqTags;
+}
+
+console.log(getUniqueTags2(mediaData));
