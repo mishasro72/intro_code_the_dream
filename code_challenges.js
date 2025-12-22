@@ -962,8 +962,8 @@ function getHosts(data) {
 
 function assignAwards(data) {
   let hostsPrize = [];
-  getHosts(data).forEach(item => {
-    hostsPrize.push(`${awards[Math.floor(Math.random() * 5)]} ${item}`)
+  getHosts(data).forEach((item) => {
+    hostsPrize.push(`${awards[Math.floor(Math.random() * 5)]} ${item}`);
   });
   return hostsPrize;
 }
@@ -978,8 +978,10 @@ function getHosts1(data) {
 
 function assignAwards1(data) {
   let hostsPrize = [];
-  getHosts(data).forEach(item => {
-    hostsPrize = hostsPrize.concat(`${awards[Math.floor(Math.random() * 5)]} ${item}`);
+  getHosts(data).forEach((item) => {
+    hostsPrize = hostsPrize.concat(
+      `${awards[Math.floor(Math.random() * 5)]} ${item}`
+    );
     console.log(hostsPrize);
   });
   return hostsPrize;
@@ -987,3 +989,115 @@ function assignAwards1(data) {
 
 console.log(getHosts1(podcasts1));
 console.log(assignAwards1(podcasts1));
+
+/* Task 25 🌴 Save the Weekend 🌴
+
+Your best friend is a copywriter who writes product descriptions 
+for a living. You want to use your hacking skills to help them 
+automate their job so you both can spend the weekend on a 
+tropical island. 
+
+Use array methods and the existing podcast data to write a function that
+can generate a description for each podcast. 
+
+Add the description as a new property on each podcast object, and return
+a new podcast array where each podcast has a description. 
+
+Each description should look like this: 
+[
+    {
+        id: 1,
+        title: "Scrimba Podcast", 
+        ...
+        description: "Scrimba Podcast is a 50 minute education podcast hosted 
+        by Alex Booker."
+    }
+    ...
+]
+
+If the podcast has more than one host, you can display only the first host.
+
+Stretch goal: Display all three hosts in the description, seperated with commas: 
+
+Example description: "Coding Corner is a 55 minute education podcast hosted by Treasure Porth, Guil Hernandez, and Tom Chant."
+*/
+import podcasts3 from "./data_podcast.js";
+
+function createDescriptionsFor(data) {
+  return data.map(podcast => { 
+    let newPodcast = {...podcast};
+    if(podcast.hosts.length > 1){
+      newPodcast.description = `${podcast.title} is a ${podcast.duration} minute ${podcast.genre} podcast hosted by ${podcast.hosts.join(', ')}.`;
+    } else {
+      newPodcast.description = `${podcast.title} is a ${podcast.duration} minute ${podcast.genre} podcast hosted by ${podcast.hosts}.`;
+    }
+    return newPodcast;
+  });
+}
+
+console.log(createDescriptionsFor(podcasts3));
+
+function createDescriptionsFor1(data) {
+  return data.map(podcast => { 
+    if(podcast.hosts.length > 1){
+      return {
+        ...podcast,
+        description: `${podcast.title} is a ${podcast.duration} minute ${podcast.genre} podcast hosted by ${podcast.hosts.join(', ')}.`
+      }
+    } else {
+      return {
+        ...podcast,
+        description: `${podcast.title} is a ${podcast.duration} minute ${podcast.genre} podcast hosted by ${podcast.hosts}.`
+      }
+    }
+  });
+}
+
+console.log(createDescriptionsFor1(podcasts3));
+
+/* Task 26 Find anagrams in an array   
+
+When two words have the exact same letters, they are anagrams. 
+
+Each item in the anagrams array is an anagram of a Scrimba teacher's
+first and last name, plus the phrase "Scrimba teacher". 
+
+Write a function to determine which strings in the array are 
+anagrams of "Bob Ziroll Scrimba Teacher".
+
+Your function should take two parameters: the phrase you want to compare to
+the anagrams, and an array of anagrams. The function should return
+a new array of anagrams that match the phrase. 
+
+Example input: treat, ["tater", "tree", "teart", "tetra", "heart", "hamster"]
+Example output: ["tater", "teart", "tetra"]
+
+Bonus: What other teachers are represented in these anagrams? 
+ */
+
+const anagrams = [
+    "moz biblical torchbearers",  
+    "it's razorbill beachcomber", 
+    "och mcrobbie trailblazers", 
+    "bib chorizo cellarmaster", 
+    "thor scribble carbimazole", 
+    "zilla borscht abercrombie", 
+    "brazil scorcher batmobile", 
+    "dame shelburne characterizing", 
+    "uber englishman characterized", 
+    "agnes rhumbline characterized", 
+    "rehab scrutinized charlemagne", 
+    "dreams zurich interchangeable", 
+    "bam hamster technocratic", 
+    "mechatronic masterbatch", 
+    "bam ratchet mechatronics"
+]
+
+function isAnagramInArray(anagram, arr){
+  function sortAnagram(str){
+    return str.replace(/\s/g, '').toLowerCase().split('').sort().join('');
+  }
+  return arr.filter(item => sortAnagram(item) === sortAnagram(anagram));
+}
+
+console.log(isAnagramInArray("Bob Ziroll Scrimba Teacher", anagrams));
